@@ -11,7 +11,7 @@ if len(sys.argv) > 2 and sys.argv[1] == '-l':
 else:
     langs = config.langs
 
-template = u'''Pages missing in {{{{lang info|{0}}}}}: <onlyinclude>{1}</onlyinclude> in total. Data as of {2}.
+template = u'''Pages missing in {{{{lang info|{0}}}}}: \'''<onlyinclude>{1}</onlyinclude>\''' in total. Data as of {2}.
 
 == List ==
 {3}
