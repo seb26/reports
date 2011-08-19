@@ -1,18 +1,20 @@
-﻿import datetime
-import wikitools
-import settings
-import time
+﻿# Copyright (c) 2011 seb26. All rights reserved.
+# Source code is licensed under the terms of the Modified BSD License.
+
+import sys
+import datetime
 import re
+import wikitools
 import webbrowser
-from wikitools import wiki, api
+import testpyconfig as config
 
 print 'Logging in.'
-wiki = wikitools.Wiki(settings.apiurl)
-wiki.login(settings.username, settings.password)
+wiki = wikitools.Wiki(config.apiurl)
+wiki.login(config.username, config.password)
 print 'Logged in.'
 
 # Setting up
-report_title = settings.page_prefix + 'All English articles'
+report_title = config.page_prefix + 'All articles/en'
 
 report_template = '''
 List of all English articles; <onlyinclude>%s</onlyinclude> in total. Data as of %s.
@@ -32,15 +34,14 @@ params = {
 
 print 'Getting API data based on parameters.'
 
-req = api.APIRequest(wiki, params)
+req = wikitools.api.APIRequest(wiki, params)
 res = req.query(querycontinue=True)
 
 print 'Gottam.'
 
 i = 0
 output = []
-current_time = (datetime.datetime.utcnow() - datetime.timedelta(seconds = 0)).strftime('%H:%M, %d %B %Y (UTC)')
-blacklist = [ 'TF2 Official Blog/new' ]
+blacklist = []
 
 print 'Start formatting into variables.'
 
@@ -57,11 +58,12 @@ for j in res['query']['allpages']:
 print 'Everything now saved as "output".'
 
 report = wikitools.Page(wiki, report_title)
-report_text = report_template % (i, current_time, '\n'.join(output))
+time = (datetime.datetime.utcnow() - datetime.timedelta(seconds = 0)).strftime('%H:%M, %d %B %Y (UTC)')
+report_text = report_template % (i, time, '\n'.join(output))
 # report_text = report_text.encode('utf-8')
 print 'Editing.'
 
-report.edit(report_text, summary=settings.editsumm + ' (%s articles total)' % i, bot=1)
+report.edit(report_text, summary=config.editsumm + ' (%s articles total)' % i, bot=1)
 print 'Saved. All done.'
 
 webbrowser.open_new_tab('http://wiki.teamfortress.com/w/index.php?title=Team_Fortress_Wiki:Reports/All_English_articles&diff=cur')

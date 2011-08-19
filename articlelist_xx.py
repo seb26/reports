@@ -41,7 +41,7 @@ template = u'''All articles in {{{{lang info|{0}}}}}; \'''<onlyinclude>{1}</only
 if len(sys.argv) > 2 and sys.argv[1] == '-l':
     langs = sys.argv[2:]
 else:
-    langs = ['ar', 'cs', 'da', 'de', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'sv', 'tr', 'zh-hans', 'zh-hant' ]
+    langs = config.langs
 
 print 'Logging in.'
 wiki = wikitools.Wiki(config.apiurl)
