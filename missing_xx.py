@@ -13,6 +13,10 @@ else:
 
 template = u'''Pages missing in {{{{lang info|{0}}}}}: \'''<onlyinclude>{1}</onlyinclude>\''' in total. Data as of {2}.
 
+; See also
+* [[Project:Reports/All articles/{0}|All articles in {{{{lang name|name|{0}}}}}]]
+* [[Special:RecentChangesLinked/Project:Reports/All articles/{0}|Recent changes to articles in {{{{lang name|name|{0}}}}}]]
+
 == List ==
 {3}
 '''
