@@ -1,0 +1,13 @@
+Requirements:
+
+  - Python 2.6.6
+  - python-wikitools-1.1.1 (http://code.google.com/p/python-wikitools/ by Mr.Z-man)
+
+How to use:
+
+  - Download the most up-to-date version of the tree from GitHub's download feature.
+  - Fill in the blanks in 'wconfig.py' and save.
+
+Notes:
+
+  - Tested on Python 2.6.6. Python 2.7 has compatibility issues with python-wikitools and is not supported unfortunately.

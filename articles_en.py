@@ -6,15 +6,16 @@ import datetime
 import re
 import wikitools
 import webbrowser
-import testpyconfig as config
+import wconfig
+config = wconfig.config[wconfig.config['default']]
 
 print 'Logging in.'
-wiki = wikitools.Wiki(config.apiurl)
-wiki.login(config.username, config.password)
+wiki = wikitools.Wiki(config['url-api'])
+wiki.login(config['usr'], config['pwd'])
 print 'Logged in.'
 
 # Setting up
-report_title = config.page_prefix + 'All articles/en'
+report_title = config['pagepref'] + 'All articles/en'
 
 report_template = '''
 List of all English articles; <onlyinclude>%s</onlyinclude> in total. Data as of %s.
@@ -48,7 +49,7 @@ print 'Start formatting into variables.'
 bad_sub = re.compile('\/(ar|cs|da|de|es|fi|fr|hu|it|ja|ko|nl|no|pl|pt|pt-br|ro|ru|sv|tr|zh-hans|zh-hant|OTFWH|titles|Archive|Header|Footer|diff)')
 
 for j in res['query']['allpages']:
-    if not bad_sub.search(j['title']) and j['title'] not in blacklist:
+    if not bad_sub.search(j['title']) and j['title'] not in blacklist and not j['title'].endswith('/prop'):
         pageid = j['pageid']
         title = j['title']
         table_row = u'# [[%s]]' % title
@@ -63,7 +64,7 @@ report_text = report_template % (i, time, '\n'.join(output))
 # report_text = report_text.encode('utf-8')
 print 'Editing.'
 
-report.edit(report_text, summary=config.editsumm + ' (%s articles total)' % i, bot=1)
+report.edit(report_text, summary=config['summ'] + ' (%s articles total)' % i, bot=1)
 print 'Saved. All done.'
 
-webbrowser.open_new_tab('http://wiki.teamfortress.com/w/index.php?title=Team_Fortress_Wiki:Reports/All_English_articles&diff=cur')
+webbrowser.open_new_tab(config['url'] + 'index.php?title=Project:Reports/All_articles/en&diff=cur')

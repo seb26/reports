@@ -4,7 +4,8 @@
 import sys
 import datetime
 import wikitools
-import testpyconfig as config
+import wconfig
+config = wconfig.config[wconfig.config['default']]
 
 def u(s):
 	if type(s) is type(u''):
@@ -41,11 +42,11 @@ template = u'''All articles in {{{{lang info|{0}}}}}; \'''<onlyinclude>{1}</only
 if len(sys.argv) > 2 and sys.argv[1] == '-l':
     langs = sys.argv[2:]
 else:
-    langs = config.langs
+    langs = config['langs']
 
 print 'Logging in.'
-wiki = wikitools.Wiki(config.apiurl)
-wiki.login(config.username, config.password)
+wiki = wikitools.Wiki(config['url-api'])
+wiki.login(config['usr'], config['pwd'])
 print 'Logged in.'
 
 params = {
@@ -73,7 +74,7 @@ for lang in langs:
     output_u = [ u(s) for s in output ]
     report_text = template.format(lang, len(output_u), time, '\n'.join(output_u))
 
-    report = wikitools.Page(wiki, config.page_prefix + 'All articles/' + lang)
+    report = wikitools.Page(wiki, config['pagepref'] + 'All articles/' + lang)
     print '{0} > editing...'.format(lang)
-    report.edit(report_text, summary=config.editsumm + ' ({0} articles)'.format(len(output_u)), bot=1)
+    report.edit(report_text, summary=config['summ'] + ' ({0} articles)'.format(len(output_u)), bot=1)
     print '{0} > done.'.format(lang)
