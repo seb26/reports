@@ -1,6 +1,7 @@
-config = {
+# Copyright (c) 2011 seb26. All rights reserved.
+# Source code is licensed under the terms of the Modified BSD License.
 
-    'default': 'tfwiki',
+config = {
 
     'tfwiki': {
         'usr': 'username',
@@ -8,11 +9,6 @@ config = {
 
         'url': 'http://wiki.teamfortress.com/w/',
         'url-api': 'http://wiki.teamfortress.com/w/api.php',
-        'pagepref': 'Project:Reports/',
-        'summ': 'Updated page.',
-
-        'blacklist': [ 'WebAPI', 'WebAPI/GetPlayerItems', 'WebAPI/GetSchema' ],
-        'langs': ['ar', 'cs', 'da', 'de', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'sv', 'tr', 'zh-hans', 'zh-hant' ]
 
         },
 
@@ -22,11 +18,6 @@ config = {
 
         'url': 'http://theportalwiki.com/w/',
         'url-api': 'http://theportalwiki.com/w/api.php',
-        'pagepref': 'Project:Reports/',
-        'summ': 'Updated page.',
-
-        'blacklist': [],
-        'langs': ['ar', 'cs', 'da', 'de', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'sv', 'tr', 'zh-hans', 'zh-hant' ]
 
         }
 
