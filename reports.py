@@ -104,17 +104,16 @@ List of all English articles; <onlyinclude>{0}</onlyinclude> in total. Data as o
 
         row = u'# [[{0}]]'
         output = [ row.format(n['title']) for n in res['query']['allpages'] if isGoodTitle(n['title']) ]
-        output_u = [ u(s) for s in output ]
 
         print 'allArticlesEn: preparing to edit...'
 
         report = wikitools.Page(self.wiki, pagetitle)
-        time = (datetime.datetime.utcnow() - datetime.timedelta(seconds=0)).strftime('%H:%M, %d %B %Y (UTC)')
+        time = datetime.datetime.utcnow().strftime('%H:%M, %d %B %Y (UTC)')
 
-        text = self.templates['allArticlesEn'].format( len(output_u), time, u'\n'.join(output_u), u(pagetitle) )
+        text = self.templates['allArticlesEn'].format( len(output), time, u'\n'.join(output), u(pagetitle) )
 
         print 'allArticlesEn: editing...'
-        report.edit(text, summary=summ.format( len(output_u) ), bot=1)
+        report.edit(text, summary=summ.format( len(output) ), bot=1)
         print 'allArticlesEn: saved.'
 
         webbrowser.open_new_tab(self.config['url'] + 'index.php?title={0}&diff=cur'.format( pagetitle.replace(' ', '_') ) )
@@ -135,19 +134,17 @@ List of all English articles; <onlyinclude>{0}</onlyinclude> in total. Data as o
         allp = [ z['title'] for z in res['query']['allpages'] ]
 
         print 'allArticles: got all pages.'
-        print 'allArticles: today I\'m preparing lists for: {0}'.format(', '.join(langs))
 
         for lang in langs:
             log = 'allArticles: {0} >'.format(lang)
             print log, 'preparing list...'
             output = [ u'# [[{0}]]'.format(z) for z in allp if z.endswith('/' + lang)]
-            time = (datetime.datetime.utcnow() - datetime.timedelta(seconds = 0)).strftime('%H:%M, %d %B %Y (UTC)')
-            output_u = [ u(s) for s in output ]
-            text = self.templates['allArticles'].format(lang, len(output_u), time, '\n'.join(output_u))
+            time = datetime.datetime.utcnow().strftime('%H:%M, %d %B %Y (UTC)')
+            text = self.templates['allArticles'].format(lang, len(output), time, '\n'.join(output))
 
             report = wikitools.Page(self.wiki, pagetitle.format(lang))
             print log, 'editing...'
-            report.edit(text, summary=summ.format(len(output_u)), bot=1)
+            report.edit(text, summary=summ.format(len(output)), bot=1)
             print log, 'done.'
 
     def missingArticles(self, pagetitle, langs, title_list_en, title_list, blacklist, summ):
@@ -176,10 +173,9 @@ List of all English articles; <onlyinclude>{0}</onlyinclude> in total. Data as o
             list_output.sort()
 
             report = wikitools.Page(self.wiki, pagetitle.format(lang))
-            time = (datetime.datetime.utcnow() - datetime.timedelta(seconds = 0)).strftime('%H:%M, %d %B %Y (UTC)')
+            time = datetime.datetime.utcnow().strftime('%H:%M, %d %B %Y (UTC)')
             text = self.templates['missingArticles'].format(lang, len(list_output), time, u'\n'.join(list_output))
 
             print log, 'editing...'
             report.edit(text, summary=summ.format(len(list_output)), bot=1)
             print log, 'done.'
-

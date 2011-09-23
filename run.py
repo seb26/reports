@@ -1,6 +1,7 @@
 # Copyright (c) 2011 seb26. All rights reserved.
 # Source code is licensed under the terms of the Modified BSD License.
 
+import sys
 import reports
 import wconfig
 
@@ -49,4 +50,25 @@ def run(allArticlesEn=False, allArticles=False, missingArticles=False, doOnly=Fa
             )
     print 'run.py > done.'
 
-run(allArticlesEn=True, allArticles=True, missingArticles=True)
+a = False
+b = False
+c = False
+d = False
+
+if '-a' in sys.argv:
+    a = True
+    print 'Running allArticlesEn'
+if '-b' in sys.argv:
+    b = True
+    print 'Running allArticles'
+if '-c' in sys.argv:
+    c = True
+    print 'Running missingArticles'
+if '-wiki' in sys.argv:
+    i = sys.argv.index('-wiki') + 1
+    d = sys.argv[i]
+    print 'for', d
+else:
+    print 'for', '|'.join(wprefs.keys())
+
+run(allArticlesEn=a, allArticles=b, missingArticles=c, doOnly=d)
