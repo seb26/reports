@@ -11,8 +11,27 @@ wprefs = {
         'prefix': 'Team Fortress Wiki:Reports/',
         'summ': 'Updated page.',
         'summ-count': 'Updated page. ({0} articles)',
-        'blacklist': [],
-        'blacklist-missingArticles': [ 'WebAPI', 'WebAPI/GetPlayerItems', 'WebAPI/GetSchema' ],
+        'blacklist': [ 
+            'Whoopee Cap/RJackson new buy button', 
+            'Mann Co Store Banlist', 
+            'Mann Co Store Pricelist', 
+            'Mann Co Store Unavailables',
+            'PubComp',
+            'Life Extender Machine',
+            'Guidelines',
+            'Engineer/sandbox'
+        ],
+        'blacklist-missingArticles': [ 
+            'WebAPI/VDF', 
+            'Whoopee Cap/RJackson new buy button', 
+            'Mann Co Store Banlist', 
+            'Mann Co Store Pricelist', 
+            'Mann Co Store Unavailables',
+            'PubComp',
+            'Life Extender Machine',
+            'Guidelines',
+            'Engineer/sandbox'
+        ],
         'langs': [ 'ar', 'cs', 'da', 'de', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'ko', 'nl', 'no', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'sv', 'tr', 'zh-hans', 'zh-hant' ]
         },
 
@@ -36,7 +55,7 @@ def run(allArticlesEn=False, allArticles=False, missingArticles=False, doOnly=Fa
         r = reports.report(wiki)
         r.login()
         if allArticlesEn:
-            r.allArticlesEn( c['prefix'] + 'All articles/en', c['langs'], c['blacklist'], c['summ-count'])
+            r.allArticlesEn( c['prefix'] + 'All articles/en', c['langs'], c['blacklist'], c['summ-count'] )
         if allArticles:
             r.allArticles( c['prefix'] + 'All articles/{0}', c['langs'], c['summ-count'] )
         if missingArticles:
